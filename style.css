@@ -72,3 +72,4 @@ input[type=range]{width:100%;accent-color:var(--acc)}
 .note{color:var(--mute);font-size:13px;max-width:420px;margin:12px auto 0}
 .demo{display:block;width:100%;max-width:760px;margin:34px auto 0;border-radius:14px;box-shadow:0 20px 60px rgba(30,20,80,.18);background:#ddd}
 .cap{color:var(--mute);font-size:12px;margin-top:10px}
+.tag a{color:inherit}
