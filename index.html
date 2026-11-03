@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>glidecut — free screen recorder with auto-zoom</title>
+<meta name="description" content="Record your screen in the browser. Auto-zoom follows the action, pretty backgrounds, 16:9 or 9:16, export MP4. Free, open-source, nothing leaves your tab.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 10 10%22%3E%3Ccircle cx=%225%22 cy=%225%22 r=%224%22 fill=%22%236d4aff%22/%3E%3C/svg%3E">
+<meta property="og:title" content="glidecut — Screen Studio-style videos, free, in your browser">
+<meta property="og:description" content="Record your screen. It zooms in on the action by itself. 16:9 or 9:16, export MP4. No install, no account, nothing leaves your tab.">
+<meta property="og:image" content="https://glidecut.vercel.app/media/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="dot"></span>glidecut</div>
+  <div class="tag">free · open-source · runs in this tab</div>
+</header>
+
+<main>
+  <!-- start screen -->
+  <section id="start" class="start">
+    <h1>record your screen.<br>it zooms in by itself.</h1>
+    <p class="sub">Screen Studio-style videos in the browser. No install, no account, no upload — the video never leaves this tab.</p>
+    <div class="actions">
+      <button id="btnRecord" class="primary"><span class="rec"></span>Start recording</button>
+      <label class="ghost" for="fileIn">Open a video</label>
+      <button id="btnSample" class="ghost">Try a sample</button>
+      <input id="fileIn" type="file" accept="video/*" hidden>
+    </div>
+    <label class="check"><input id="optMic" type="checkbox"> record microphone</label>
+    <p id="mobileNote" class="note" hidden>Recording needs a desktop browser. On a phone you can still open a screen recording and get the zooms.</p>
+    <p id="startErr" class="err" hidden></p>
+    <video class="demo" src="media/demo.mp4" autoplay muted loop playsinline></video>
+    <p class="cap">a raw 28 s GitHub recording → glidecut, zero manual edits</p>
+    <div class="drop" id="drop">drop a screen recording here</div>
+  </section>
+
+  <!-- recording -->
+  <section id="recording" class="recording" hidden>
+    <div class="count" id="count"></div>
+    <div class="live" id="live"><span class="rec"></span><span id="recTime">00:00</span> recording — switch to the window you want to show</div>
+    <button id="btnStop" class="primary">Stop</button>
+  </section>
+
+  <!-- editor -->
+  <section id="editor" class="editor" hidden>
+    <div class="stage-wrap">
+      <canvas id="stage" width="1920" height="1080"></canvas>
+      <div class="stage-hint" id="stageHint"></div>
+    </div>
+
+    <aside class="panel">
+      <div class="group">
+        <div class="label">Format</div>
+        <div class="seg" id="segAspect">
+          <button data-v="16:9" class="on">16:9</button>
+          <button data-v="9:16">9:16</button>
+          <button data-v="1:1">1:1</button>
+          <button data-v="4:5">4:5</button>
+        </div>
+      </div>
+      <div class="group">
+        <div class="label">Background</div>
+        <div class="swatches" id="swatches"></div>
+      </div>
+      <div class="group">
+        <div class="label">Padding <span id="vPad"></span></div>
+        <input type="range" id="rPad" min="0" max="20" value="8">
+        <div class="label">Corners <span id="vRad"></span></div>
+        <input type="range" id="rRad" min="0" max="40" value="16">
+        <div class="label">Zoom strength <span id="vZoom"></span></div>
+        <input type="range" id="rZoom" min="12" max="35" value="20">
+      </div>
+      <div class="group">
+        <button id="btnAuto" class="ghost wide">Re-detect zooms</button>
+        <button id="btnClear" class="ghost wide">Remove all zooms</button>
+      </div>
+      <div class="group">
+        <button id="btnExport" class="primary wide">Export MP4</button>
+        <div class="progress" id="prog" hidden><div id="progBar"></div><span id="progTxt"></span></div>
+        <a id="dl" class="dl" hidden>Download</a>
+        <button id="btnNew" class="link">New recording</button>
+      </div>
+    </aside>
+
+    <div class="transport">
+      <button id="btnPlay" class="icon" title="Play / pause (space)">▶</button>
+      <span id="tc" class="tc">0:00.0</span>
+      <canvas id="timeline" height="64"></canvas>
+    </div>
+    <p class="help">Purple blocks are zooms. Drag to move, drag edges to resize, Delete to remove, double-click the track to add one. With a zoom selected, click the video to set where it looks.</p>
+  </section>
+
+  <video id="src" playsinline muted hidden></video>
+</main>
+
+<footer class="foot">
+  <span>made with Claude Code + Opus 5.5</span>
+  <a href="https://x.com/0xbobaaa" target="_blank" rel="noopener">@0xbobaaa</a>
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
